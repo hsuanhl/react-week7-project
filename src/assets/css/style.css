@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+.zoom-animation {
+  animation: slowZoom 20s infinite alternate ease-in-out;
+}
+
+.hidden{
+  display: none;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
