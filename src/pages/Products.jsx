@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from '../components/Card';
-import Popup from '../components/Popup';
 
 import { ThreeDots } from 'react-loader-spinner';
 

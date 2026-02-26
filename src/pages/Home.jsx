@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateCount } from '../slices/cartSlice';
 import Card from '../components/Card';
-import Popup from '../components/Popup';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
