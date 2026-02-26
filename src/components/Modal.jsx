@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createAsyncMessage } from '../slices/messageSlice';
+
 import axios from 'axios';
 import CloseIcon from '../assets/xmark-solid-full.svg';
 
@@ -15,6 +18,7 @@ const MODAL_TITLE = {
 
 const Modal = ({ modalType, formData, setFormData, fetchProducts, setIsModalOpen }) => {
   const [submitMessage, setSubmitMessage] = useState('');
+  const dispatch = useDispatch();
 
   // API相關
   const handleCreate = async () => {
@@ -30,6 +34,12 @@ const Modal = ({ modalType, formData, setFormData, fetchProducts, setIsModalOpen
       };
       await axios.post(`${API_BASE}/api/${API_PATH}/admin/product`, param);
       closeModal();
+      dispatch(
+        createAsyncMessage({
+          message: '成功新增商品！',
+          success: true,
+        }),
+      );
       fetchProducts();
     } catch (error) {
       const message = error?.response?.data?.message.join(',');
@@ -51,6 +61,12 @@ const Modal = ({ modalType, formData, setFormData, fetchProducts, setIsModalOpen
       };
       await axios.put(`${API_BASE}/api/${API_PATH}/admin/product/${id}`, param);
       closeModal();
+      dispatch(
+        createAsyncMessage({
+          message: '成功更新商品！',
+          success: true,
+        }),
+      );
       fetchProducts();
     } catch (error) {
       const message = error?.response?.data?.message.join(',');
@@ -63,13 +79,18 @@ const Modal = ({ modalType, formData, setFormData, fetchProducts, setIsModalOpen
       const id = formData.id;
       await axios.delete(`${API_BASE}/api/${API_PATH}/admin/product/${id}`);
       closeModal();
+      dispatch(
+        createAsyncMessage({
+          message: '成功刪除商品！',
+          success: true,
+        }),
+      );
       fetchProducts();
     } catch (error) {
       const message = error?.response?.data?.message.join(',');
       setSubmitMessage(message);
     }
   };
-
 
   const handleImageChange = (index, value) => {
     setFormData(prev => {
@@ -133,7 +154,7 @@ const Modal = ({ modalType, formData, setFormData, fetchProducts, setIsModalOpen
     });
   };
 
-    const handleConfirm = () => {
+  const handleConfirm = () => {
     const actions = {
       create: handleCreate,
       edit: handleEdit,
